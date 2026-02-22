@@ -9,7 +9,9 @@ services:
       - "11434:11434"
     volumes:
       - "D:/data/ollama_data/:/root/.ollama"
-      - "D:/data/docker_inside/app:/app"      
+      - "D:/data/docker_inside/app:/app"
+    environment:
+      - OLLAMA_NUM_GPU=999
     deploy:
       resources:
         reservations:
