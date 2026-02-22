@@ -1,0 +1,12 @@
+name: filesystem-mcp
+version: 0.0.1
+schema: v1
+
+mcpServers:
+  - name: ollama-fs
+    command: npx
+    args:
+      - -y
+      - "@modelcontextprotocol/server-filesystem"
+      - "D:/code/ollama_ai"
+    env: {}

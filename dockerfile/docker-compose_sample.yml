@@ -1,0 +1,22 @@
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - "D:/data/ollama_data/:/root/.ollama"
+    environment:
+      - PATH=/root/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+      - ANTHROPIC_BASE_URL=http://localhost:11434
+      - ANTHROPIC_API_KEY=ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
