@@ -9,6 +9,7 @@ services:
       - "11434:11434"
     volumes:
       - "D:/data/ollama_data/:/root/.ollama"
+      - "D:/data/docker_inside/app:/app"      
     deploy:
       resources:
         reservations:
