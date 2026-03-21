@@ -9,18 +9,12 @@ RUN apt-get update && apt-get install -y \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-# Claude CLI
 RUN curl -fsSL https://claude.ai/install.sh | bash
 
-# PATH 설정
 ENV PATH="/root/.local/bin:${PATH}"
-
-# Claude → Ollama 연결
 ENV ANTHROPIC_AUTH_TOKEN="ollama"
 ENV ANTHROPIC_BASE_URL="http://localhost:11434"
 ENV ANTHROPIC_API_KEY="ollama"
-
-# ⚠️ GPU 안정 설정 (중요)
-ENV OLLAMA_CONTEXT_LENGTH="8192"
+ENV OLLAMA_CONTEXT_LENGTH="64000"
 
 WORKDIR /app

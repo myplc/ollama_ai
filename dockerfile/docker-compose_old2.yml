@@ -1,22 +1,19 @@
-version: "3.9"
-
 services:
   ollama:
-    build: .
+    build: .  
     container_name: myollama
     tty: true
     stdin_open: true
     restart: unless-stopped
-
     ports:
       - "11434:11434"
-
     volumes:
       - "D:/data/ollama_data/:/root/.ollama"
       - "D:/data/docker_inside/app:/app"
-
-    # ✅ GPU 사용 핵심 설정 (Docker Desktop + WSL2 + NVIDIA)
-    gpus: all
-
-    environment:
-      - OLLAMA_CONTEXT_LENGTH=8192
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
