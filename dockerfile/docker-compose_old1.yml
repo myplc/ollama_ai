@@ -1,0 +1,16 @@
+services:
+  ollama:
+    build: .
+    container_name: myollama
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - "D:/data/ollama_data/:/root/.ollama"
+      - "D:/data/docker_inside/app:/app"
+
+    gpus: all    

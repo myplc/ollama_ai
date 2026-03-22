@@ -13,4 +13,26 @@ services:
       - "D:/data/ollama_data/:/root/.ollama"
       - "D:/data/docker_inside/app:/app"
 
-    gpus: all    
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: webui
+    restart: unless-stopped
+    depends_on:
+      - ollama
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - "D:/data/docker_inside/webui:/app/backend/data"
+
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
