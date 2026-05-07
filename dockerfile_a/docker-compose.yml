@@ -1,0 +1,35 @@
+services:
+  ollama:
+    build: .
+    container_name: myollama
+    tty: true
+    stdin_open: true
+    restart: unless-stopped
+
+    ports:
+      - "11434:11434"
+
+    volumes:
+      - "D:/data/ollama_data/:/root/.ollama"
+      - "D:/data/docker_inside/app:/app"
+
+    deploy:
+      resources:
+        reservations:
+          devices: []
+
+  webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: webui
+    restart: unless-stopped
+    depends_on:
+      - ollama
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - "D:/data/docker_inside/webui:/app/backend/data"
+
+    environment:
+      - OLLAMA_BASE_URL=http://ollama:11434
